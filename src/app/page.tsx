@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import { CreatePost } from '~/app/_components/create-post';
 import { api } from '~/trpc/server';
+import { Page } from '~/app/_components';
 
 import styles from './index.module.css';
 
@@ -9,7 +10,7 @@ export default async function Home() {
   const hello = await api.post.hello({ text: 'from tRPC' });
 
   return (
-    <main className={styles.main}>
+    <Page>
       <div className={styles.container}>
         <h1 className={styles.title}>
           Create <span className={styles.pinkSpan}>T3</span> App
@@ -34,7 +35,7 @@ export default async function Home() {
 
         <CrudShowcase />
       </div>
-    </main>
+    </Page>
   );
 }
 

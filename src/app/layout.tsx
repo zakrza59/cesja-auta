@@ -7,6 +7,7 @@ import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { GeistSans } from 'geist/font/sans';
 
 import { TRPCReactProvider } from '~/trpc/react';
+import { Header } from '~/app/_components';
 
 export const metadata = {
   title: 'Create T3 App',
@@ -22,16 +23,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ColorSchemeScript />
         </head>
         <body className={GeistSans.className}>
-          <header>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-          </header>
           <TRPCReactProvider>
-            <MantineProvider>{children}</MantineProvider>
+            <MantineProvider>
+              <Header />
+              {children}
+            </MantineProvider>
           </TRPCReactProvider>
           <SpeedInsights />
           <Analytics />
