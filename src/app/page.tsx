@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { CreatePost } from '~/app/_components/create-post';
 import { api } from '~/trpc/server';
-import { Page } from '~/app/_components';
+import { Page } from '~/app/_components/Page';
 
 import styles from './index.module.css';
 

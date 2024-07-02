@@ -2,12 +2,12 @@ import '~/styles/globals.css';
 import '@mantine/core/styles.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
+import { ClerkProvider } from '@clerk/nextjs';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { GeistSans } from 'geist/font/sans';
 
 import { TRPCReactProvider } from '~/trpc/react';
-import { Header } from '~/app/_components';
+import { Header } from '~/app/_components/Header';
 
 export const metadata = {
   title: 'Create T3 App',

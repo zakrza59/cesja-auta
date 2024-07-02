@@ -3,7 +3,7 @@
   width: 100%;
   top: 0;
   background: var(--mantine-color-white);
-  height: rem(60px);
+  height: rem(72px);
   padding-left: var(--mantine-spacing-md);
   padding-right: var(--mantine-spacing-md);
   border-bottom: rem(1px) solid

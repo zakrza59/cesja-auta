@@ -2,7 +2,9 @@
 
 import { Group, Button, Divider, Box, Burger, Drawer, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+
+import { UserDropdown } from '~/app/_components/Header/UserDropdown';
 
 import classes from './Header.module.css';
 
@@ -23,16 +25,16 @@ export const Header = () => {
             </a>
           </Group>
 
-          <Group visibleFrom="sm">
+          <Group visibleFrom="sm" gap={24}>
             <SignedOut>
               <SignInButton>
                 <Button variant="default">Zaloguj się</Button>
               </SignInButton>
             </SignedOut>
             <SignedIn>
-              <UserButton />
+              <UserDropdown />
             </SignedIn>
-            <Button variant="gradient" gradient={{ from: 'blue', to: 'grape', deg: 90 }}>
+            <Button size="md" variant="gradient" gradient={{ from: 'blue', to: 'grape', deg: 90 }}>
               Wystaw auto
             </Button>
           </Group>
@@ -62,8 +64,10 @@ export const Header = () => {
         </a>
         <Divider my="sm" />
         <Stack justify="center" pb="xl" px="md">
-          <Button variant="default">Zaloguj się</Button>
-          <Button variant="gradient" gradient={{ from: 'blue', to: 'grape', deg: 90 }}>
+          <Button size="md" variant="default">
+            Zaloguj się
+          </Button>
+          <Button size="md" variant="gradient" gradient={{ from: 'blue', to: 'grape', deg: 90 }}>
             Wystaw auto
           </Button>
         </Stack>
