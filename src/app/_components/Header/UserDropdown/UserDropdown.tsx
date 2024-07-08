@@ -1,6 +1,13 @@
 import React from 'react';
 import { UnstyledButton, Group, Text, Menu, rem, useMantineTheme } from '@mantine/core';
-import { IconLogout, IconHeart, IconSettings, IconChevronDown, IconUserCircle } from '@tabler/icons-react';
+import {
+  IconLogout,
+  IconHeart,
+  IconSettings,
+  IconChevronDown,
+  IconUserCircle,
+  IconBuildingStore,
+} from '@tabler/icons-react';
 import { SignOutButton } from '@clerk/nextjs';
 
 import classes from './UserDropdown.module.css';
@@ -28,16 +35,19 @@ export const UserDropdown = () => {
         </UnstyledButton>
       </Menu.Target>
       <Menu.Dropdown>
+        <Menu.Item leftSection={<IconBuildingStore style={{ width: rem(16), height: rem(16) }} />}>
+          Ogłoszenia
+        </Menu.Item>
         <Menu.Item leftSection={<IconHeart style={{ width: rem(16), height: rem(16) }} color={theme.colors.red[6]} />}>
-          Liked posts
+          Ulubione
         </Menu.Item>
         <Menu.Item leftSection={<IconSettings style={{ width: rem(16), height: rem(16) }} />}>
-          Account settings
+          Ustawienia konta
         </Menu.Item>
         <Menu.Divider />
         <SignOutButton>
           <Menu.Item color="red" leftSection={<IconLogout style={{ width: rem(16), height: rem(16) }} />}>
-            Logout
+            Wyloguj się
           </Menu.Item>
         </SignOutButton>
       </Menu.Dropdown>
