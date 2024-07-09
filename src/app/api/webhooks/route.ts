@@ -1,6 +1,7 @@
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
+import { UserStatus } from '@prisma/client';
 
 import { db } from '~/server/db';
 
@@ -61,7 +62,20 @@ export async function POST(req: Request) {
     });
 
     if (!user) {
-      return new Response('Error occurred - user webhook', {
+      return new Response('Error occurred - user.created', {
+        status: 400,
+      });
+    }
+  }
+
+  if (eventType === 'user.deleted') {
+    const user = await db.user.update({
+      where: { clerkId: id },
+      data: { status: UserStatus.DELETED },
+    });
+
+    if (!user) {
+      return new Response('Error occurred - user.deleted', {
         status: 400,
       });
     }
