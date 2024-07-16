@@ -40,16 +40,19 @@ export default async function Home() {
 }
 
 async function CrudShowcase() {
-  const latestPost = await api.post.getLatest();
+  const cars = await api.car.getLatest();
 
   return (
     <div className={styles.showcaseContainer}>
-      {latestPost ? (
-        <p className={styles.showcaseText}>Your most recent post: {latestPost.name}</p>
+      {cars.length > 0 ? (
+        <ul>
+          {cars.map((car) => {
+            return <li key={car.id}>{car.title}</li>;
+          })}
+        </ul>
       ) : (
-        <p className={styles.showcaseText}>You have no posts yet.</p>
+        <p className={styles.showcaseText}>No cars in db</p>
       )}
-
       <CreatePost />
     </div>
   );

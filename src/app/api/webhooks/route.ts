@@ -55,9 +55,10 @@ export async function POST(req: Request) {
   console.log('Webhook body:', body);
 
   if (eventType === 'user.created') {
+    const { email_addresses } = evt.data;
     const user = await db.user.upsert({
       where: { clerkId: id },
-      create: { clerkId: id! },
+      create: { clerkId: id!, email: email_addresses[0]!.email_address },
       update: {},
     });
 
