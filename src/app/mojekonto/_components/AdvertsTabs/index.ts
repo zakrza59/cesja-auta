@@ -1,0 +1,1 @@
+export { AdvertsTabs } from './AdvertsTabs';

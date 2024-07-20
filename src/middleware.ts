@@ -1,6 +1,10 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-const isProtectedRoute = createRouteMatcher(['/dashboard(.*)', '/forum(.*)']);
+import { routes } from '~/const/routes';
+
+const includeChildRoutesRegex = (route: string) => `${route}(.*)`;
+
+const isProtectedRoute = createRouteMatcher([includeChildRoutesRegex(routes.myAccount)]);
 
 export default clerkMiddleware((auth, req) => {
   if (isProtectedRoute(req)) auth().protect();
