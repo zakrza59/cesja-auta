@@ -38,7 +38,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
           </Tabs.List>
         </Tabs>
       </Flex>
-      <div>{children}</div>
+      {children}
     </div>
   );
 }

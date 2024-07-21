@@ -1,25 +1,19 @@
 'use client';
 
 import { notFound, usePathname } from 'next/navigation';
+import { Flex } from '@mantine/core';
 
+import { routes } from '~/const/routes';
 import { Page } from '~/app/_components/Page';
 import { AdvertsTabs } from '~/app/mojekonto/_components/AdvertsTabs';
-import { routes } from '~/const/routes';
-
-const AdvertsList = () => {
-  return <div>AdvertsList1</div>;
-};
-const AdvertsList2 = () => {
-  return <div>AdvertsList2</div>;
-};
-const AdvertsList3 = () => {
-  return <div>AdvertsList3</div>;
-};
+import { ActiveCars } from '~/app/mojekonto/(ogłoszenia)/_components/ActiveCars';
+import { UnpaidCars } from '~/app/mojekonto/(ogłoszenia)/_components/UnpaidCars';
+import { FinishedCars } from '~/app/mojekonto/(ogłoszenia)/_components/FinishedCars';
 
 const advertsTabs = [
-  { label: 'Aktywne', value: routes.myAccount, component: <AdvertsList /> },
-  { label: 'Nieopłacone', value: routes.myAccountUnpaid, component: <AdvertsList2 /> },
-  { label: 'Zakończone', value: routes.myAccountFinished, component: <AdvertsList3 /> },
+  { label: 'Aktywne', value: routes.myAccount, component: <ActiveCars /> },
+  { label: 'Nieopłacone', value: routes.myAccountUnpaid, component: <UnpaidCars /> },
+  { label: 'Zakończone', value: routes.myAccountFinished, component: <FinishedCars /> },
 ];
 
 export default function MojeKonto() {
@@ -32,8 +26,9 @@ export default function MojeKonto() {
 
   return (
     <Page>
-      <AdvertsTabs tabs={advertsTabs} path={pathname} />
-      SLUG
+      <Flex direction="column">
+        <AdvertsTabs tabs={advertsTabs} path={pathname} />
+      </Flex>
     </Page>
   );
 }
