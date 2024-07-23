@@ -7,8 +7,6 @@ import { Page } from '~/app/_components/Page';
 import styles from './index.module.css';
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: 'from tRPC' });
-
   return (
     <Page>
       <div className={styles.container}>
@@ -29,9 +27,7 @@ export default async function Home() {
             </div>
           </Link>
         </div>
-        <div className={styles.showcaseContainer}>
-          <p className={styles.showcaseText}>{hello ? hello.greeting : 'Loading tRPC query...'}</p>
-        </div>
+        <div className={styles.showcaseContainer}></div>
 
         <CrudShowcase />
       </div>

@@ -18,7 +18,7 @@ export const AdvertsTabs = ({ path, tabs }: AdvertsTabsProps) => {
   };
 
   return (
-    <Tabs value={path} onChange={handleTabChange}>
+    <Tabs value={path} onChange={handleTabChange} keepMounted={false}>
       <Tabs.List>
         {tabs.map((tab) => (
           <Tabs.Tab key={tab.value} value={tab.value}>

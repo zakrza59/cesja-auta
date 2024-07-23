@@ -13,7 +13,7 @@ export const CarList = ({ data }: CarListProps) => {
   return (
     <ul>
       {data.map((car) => (
-        <li>{car.title}</li>
+        <li key={car.id}>{car.title}</li>
       ))}
     </ul>
   );
