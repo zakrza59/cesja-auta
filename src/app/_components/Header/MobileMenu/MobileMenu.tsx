@@ -1,6 +1,9 @@
 import React from 'react';
+import Link from 'next/link';
 import { Button, Divider, Drawer, Stack } from '@mantine/core';
 import { SignedIn, SignedOut, SignInButton, SignOutButton } from '@clerk/nextjs';
+
+import { routes } from '~/const/routes';
 
 import classes from './MobileMenu.module.css';
 
@@ -19,7 +22,13 @@ export const MobileMenu = ({ isOpen, handleClose }: MobileMenuProps) => {
       overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
     >
       <Stack justify="center" py="lg" px="md">
-        <Button size="md" variant="gradient" gradient={{ from: 'blue', to: 'grape', deg: 90 }}>
+        <Button
+          size="md"
+          variant="gradient"
+          gradient={{ from: 'blue', to: 'grape', deg: 90 }}
+          component={Link}
+          href={routes.addCar}
+        >
           Wystaw auto
         </Button>
       </Stack>

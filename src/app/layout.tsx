@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { GeistSans } from 'geist/font/sans';
+import { plPL } from '@clerk/localizations';
 
 import { TRPCReactProvider } from '~/trpc/react';
 import { Header } from '~/app/_components/Header';
@@ -17,7 +18,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider localization={plPL}>
       <html lang="en">
         <head suppressHydrationWarning>
           <ColorSchemeScript />

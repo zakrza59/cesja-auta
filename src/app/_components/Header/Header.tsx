@@ -1,11 +1,13 @@
 'use client';
 
+import Link from 'next/link';
 import { Group, Button, Box, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 
 import { UserDropdown } from '~/app/_components/Header/UserDropdown';
 import { MobileMenu } from '~/app/_components/Header/MobileMenu';
+import { routes } from '~/const/routes';
 
 import classes from './Header.module.css';
 
@@ -34,7 +36,13 @@ export const Header = () => {
             <SignedIn>
               <UserDropdown />
             </SignedIn>
-            <Button size="md" variant="gradient" gradient={{ from: 'blue', to: 'grape', deg: 90 }}>
+            <Button
+              size="md"
+              variant="gradient"
+              gradient={{ from: 'blue', to: 'grape', deg: 90 }}
+              component={Link}
+              href={routes.addCar}
+            >
               Wystaw auto
             </Button>
           </Group>
