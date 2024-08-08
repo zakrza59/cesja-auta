@@ -27,7 +27,7 @@ export const MobileMenu = ({ isOpen, handleClose }: MobileMenuProps) => {
           variant="gradient"
           gradient={{ from: 'blue', to: 'grape', deg: 90 }}
           component={Link}
-          href={routes.addCar}
+          href={routes.addOffer}
         >
           Wystaw auto
         </Button>

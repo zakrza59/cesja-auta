@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,17 +15,17 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   status    UserStatus @default(ACTIVE)
-  cars      Car[]
+  offers    Offer[]
 }
 
-model Car {
-  id           String   @id
+model Offer {
+  id           String      @id
   clerkId      String
   title        String
   description  String?
   price        Float?
-  makeId       Int
-  modelId      Int
+  makeId       String
+  modelId      String
   year         Int?
   mileage      Int?
   fuelType     String?
@@ -37,37 +34,37 @@ model Car {
   bodyType     String?
   color        String?
   condition    String?
-  status       Status   @default(ACTIVE)
-  type         Type     @default(PERSONAL)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [clerkId], references: [clerkId])
-  make         Make     @relation(fields: [makeId], references: [id])
-  model        Model    @relation(fields: [modelId], references: [id])
+  status       OfferStatus @default(ACTIVE)
+  type         CarType     @default(PERSONAL)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  user         User        @relation(fields: [clerkId], references: [clerkId])
+  make         Make        @relation(fields: [makeId], references: [id])
+  model        Model       @relation(fields: [modelId], references: [id])
   // images       Image[]
 }
 
 // model Image {
-//   id    Int    @id @default(autoincrement())
-//   carId Int
-//   url   String
-//   order Int
-//   car   Car    @relation(fields: [carId], references: [id])
+//   id      Int    @id @default(autoincrement())
+//   offerId String
+//   url     String
+//   order   Int
+//   offer   Offer  @relation(fields: [offerId], references: [id])
 // }
 
 model Make {
-  id     Int     @id @default(autoincrement())
+  id     String  @id
   name   String  @unique
   models Model[]
-  cars   Car[]
+  offers Offer[]
 }
 
 model Model {
-  id     Int    @id @default(autoincrement())
-  makeId Int
-  name   String
-  make   Make   @relation(fields: [makeId], references: [id])
-  cars   Car[]
+  id     String  @id @unique
+  name   String  @unique
+  makeId String
+  make   Make    @relation(fields: [makeId], references: [id])
+  offers Offer[]
 }
 
 enum UserStatus {
@@ -75,13 +72,13 @@ enum UserStatus {
   DELETED
 }
 
-enum Status {
+enum OfferStatus {
   ACTIVE
   FINISHED
   UNPAID
 }
 
-enum Type {
+enum CarType {
   PERSONAL
   CARGO
 }

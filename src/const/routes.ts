@@ -4,5 +4,5 @@ export const routes = {
   myAccountPayments: '/mojekonto/platnosci',
   myAccountUnpaid: '/mojekonto/nieoplacone',
   myAccountFinished: '/mojekonto/zakonczone',
-  addCar: '/nowe-ogloszenie',
+  addOffer: '/nowe-ogloszenie',
 };

@@ -10,7 +10,7 @@ export function CreatePost() {
   const router = useRouter();
   const [name, setName] = useState('');
 
-  const { mutate, isPending } = api.car.addCar.useMutation({
+  const { mutate, isPending } = api.offer.addOffer.useMutation({
     onSuccess: () => {
       router.refresh();
       setName('');

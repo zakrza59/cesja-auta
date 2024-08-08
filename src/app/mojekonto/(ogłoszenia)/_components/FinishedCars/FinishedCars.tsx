@@ -4,7 +4,7 @@ import { api } from '~/trpc/react';
 import { CarList } from '~/app/mojekonto/(ogłoszenia)/_components/CarList';
 
 export const FinishedCars = () => {
-  const { data, error, isPending } = api.car.getFinishedCarsByUser.useQuery();
+  const { data, error, isPending } = api.offer.getFinishedCarsByUser.useQuery();
   console.log(data, 'finished cars');
 
   if (isPending) {

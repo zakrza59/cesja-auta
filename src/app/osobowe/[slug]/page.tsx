@@ -10,7 +10,7 @@ export default async function Osobowe({ params }: Props) {
 
   const carId = slug.slice(-10);
 
-  const car = await api.car.getCar({ id: carId });
+  const car = await api.offer.getCar({ id: carId });
 
   if (!car) {
     return <Page>Osobowe</Page>;

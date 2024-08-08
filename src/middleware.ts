@@ -4,7 +4,7 @@ import { routes } from '~/const/routes';
 
 const includeChildRoutesRegex = (route: string) => `${route}(.*)`;
 
-const isProtectedRoute = createRouteMatcher([includeChildRoutesRegex(routes.myAccount), routes.addCar]);
+const isProtectedRoute = createRouteMatcher([includeChildRoutesRegex(routes.myAccount), routes.addOffer]);
 
 export default clerkMiddleware((auth, req) => {
   if (isProtectedRoute(req)) auth().protect();

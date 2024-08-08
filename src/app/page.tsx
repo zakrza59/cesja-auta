@@ -36,7 +36,7 @@ export default async function Home() {
 }
 
 async function CrudShowcase() {
-  const cars = await api.car.getLatest();
+  const cars = await api.offer.getLatest();
 
   return (
     <div className={styles.showcaseContainer}>

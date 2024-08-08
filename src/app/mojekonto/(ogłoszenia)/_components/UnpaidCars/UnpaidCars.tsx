@@ -4,7 +4,7 @@ import { api } from '~/trpc/react';
 import { CarList } from '~/app/mojekonto/(ogłoszenia)/_components/CarList';
 
 export const UnpaidCars = () => {
-  const { data, error, isPending } = api.car.getUnpaidCarsByUser.useQuery();
+  const { data, error, isPending } = api.offer.getUnpaidCarsByUser.useQuery();
 
   console.log(data, 'unpaid cars');
 

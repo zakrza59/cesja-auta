@@ -1,7 +1,12 @@
 import React from 'react';
 
 import { Page } from '~/app/_components/Page';
+import { AddOfferForm } from 'src/app/nowe-ogloszenie/_components/AddOfferForm';
 
 export default function NoweOgloszenie() {
-  return <Page>NoweOgloszenie</Page>;
+  return (
+    <Page>
+      <AddOfferForm />
+    </Page>
+  );
 }

@@ -41,7 +41,7 @@ export const Header = () => {
               variant="gradient"
               gradient={{ from: 'blue', to: 'grape', deg: 90 }}
               component={Link}
-              href={routes.addCar}
+              href={routes.addOffer}
             >
               Wystaw auto
             </Button>
