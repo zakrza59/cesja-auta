@@ -6,14 +6,14 @@ import { Flex } from '@mantine/core';
 import { routes } from '~/const/routes';
 import { Page } from '~/app/_components/Page';
 import { AdvertsTabs } from '~/app/mojekonto/_components/AdvertsTabs';
-import { ActiveCars } from '~/app/mojekonto/(ogłoszenia)/_components/ActiveCars';
-import { UnpaidCars } from '~/app/mojekonto/(ogłoszenia)/_components/UnpaidCars';
-import { FinishedCars } from '~/app/mojekonto/(ogłoszenia)/_components/FinishedCars';
+import { ActiveOffers } from '~/app/mojekonto/(ogłoszenia)/_components/ActiveOffers';
+import { UnpaidOffers } from '~/app/mojekonto/(ogłoszenia)/_components/UnpaidOffers';
+import { FinishedOffers } from '~/app/mojekonto/(ogłoszenia)/_components/FinishedOffers';
 
 const advertsTabs = [
-  { label: 'Aktywne', value: routes.myAccount, component: <ActiveCars /> },
-  { label: 'Nieopłacone', value: routes.myAccountUnpaid, component: <UnpaidCars /> },
-  { label: 'Zakończone', value: routes.myAccountFinished, component: <FinishedCars /> },
+  { label: 'Aktywne', value: routes.myAccount, component: <ActiveOffers /> },
+  { label: 'Nieopłacone', value: routes.myAccountUnpaid, component: <UnpaidOffers /> },
+  { label: 'Zakończone', value: routes.myAccountFinished, component: <FinishedOffers /> },
 ];
 
 export default function MojeKonto() {

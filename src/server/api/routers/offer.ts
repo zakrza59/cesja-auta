@@ -17,7 +17,7 @@ export const offerRouter = createTRPCRouter({
       },
     });
   }),
-  getActiveCarsByUser: protectedProcedure.query(({ ctx }) => {
+  getActiveOffersByUser: protectedProcedure.query(({ ctx }) => {
     return ctx.db.offer.findMany({
       where: {
         clerkId: ctx.userId,
@@ -25,7 +25,7 @@ export const offerRouter = createTRPCRouter({
       },
     });
   }),
-  getUnpaidCarsByUser: protectedProcedure.query(({ ctx }) => {
+  getUnpaidOffersByUser: protectedProcedure.query(({ ctx }) => {
     return ctx.db.offer.findMany({
       where: {
         clerkId: ctx.userId,
@@ -33,7 +33,7 @@ export const offerRouter = createTRPCRouter({
       },
     });
   }),
-  getFinishedCarsByUser: protectedProcedure.query(({ ctx }) => {
+  getFinishedOffersByUser: protectedProcedure.query(({ ctx }) => {
     return ctx.db.offer.findMany({
       where: {
         clerkId: ctx.userId,
