@@ -25,7 +25,7 @@ export const Select = <T extends FieldValues>({
     shouldUnregister,
   });
 
-  console.log(value, 'VALUE FROM SELECT');
+  console.log(value, 'VALUE FROM SELECT', name);
   return (
     <$Select
       variant="filled"

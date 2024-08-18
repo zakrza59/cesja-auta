@@ -36,14 +36,18 @@ export default async function Home() {
 }
 
 async function CrudShowcase() {
-  const cars = await api.offer.getLatest();
+  const offers = await api.offer.getLatest();
 
   return (
     <div className={styles.showcaseContainer}>
-      {cars.length > 0 ? (
+      {offers.length > 0 ? (
         <ul>
-          {cars.map((car) => {
-            return <li key={car.id}>{car.title}</li>;
+          {offers.map((offer) => {
+            return (
+              <li key={offer.id}>
+                {offer.title} - {offer.make.name} - {offer.model.name}
+              </li>
+            );
           })}
         </ul>
       ) : (

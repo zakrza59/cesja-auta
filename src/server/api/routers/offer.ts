@@ -4,16 +4,17 @@ import { TRPCError } from '@trpc/server';
 
 import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/api/trpc';
 import { generateId } from '~/utils/generateId';
+import { AddOfferSchema } from '~/server/api/routers/offer.schema';
 
 export const offerRouter = createTRPCRouter({
-  addOffer: protectedProcedure.input(z.object({ title: z.string().min(1) })).mutation(async ({ ctx, input }) => {
+  addOffer: protectedProcedure.input(AddOfferSchema).mutation(async ({ ctx, input }) => {
     return ctx.db.offer.create({
       data: {
         id: generateId(),
         clerkId: ctx.userId,
         title: input.title,
-        makeId: 'bmw',
-        modelId: 'x3',
+        makeId: input.make,
+        modelId: input.model,
       },
     });
   }),
@@ -23,6 +24,10 @@ export const offerRouter = createTRPCRouter({
         clerkId: ctx.userId,
         status: OfferStatus.ACTIVE,
       },
+      include: {
+        make: true,
+        model: true,
+      },
     });
   }),
   getUnpaidOffersByUser: protectedProcedure.query(({ ctx }) => {
@@ -30,6 +35,10 @@ export const offerRouter = createTRPCRouter({
       where: {
         clerkId: ctx.userId,
         status: OfferStatus.UNPAID,
+      },
+      include: {
+        make: true,
+        model: true,
       },
     });
   }),
@@ -39,11 +48,19 @@ export const offerRouter = createTRPCRouter({
         clerkId: ctx.userId,
         status: OfferStatus.FINISHED,
       },
+      include: {
+        make: true,
+        model: true,
+      },
     });
   }),
   getLatest: publicProcedure.query(({ ctx }) => {
     return ctx.db.offer.findMany({
       orderBy: { createdAt: 'desc' },
+      include: {
+        make: true,
+        model: true,
+      },
     });
   }),
   getCar: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
