@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import { CreatePost } from '~/app/_components/create-post';
 import { api } from '~/trpc/server';
 import { Page } from '~/app/_components/Page';
 
@@ -53,7 +52,6 @@ async function CrudShowcase() {
       ) : (
         <p className={styles.showcaseText}>No cars in db</p>
       )}
-      <CreatePost />
     </div>
   );
 }
