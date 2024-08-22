@@ -1,3 +1,5 @@
+import * as changeCase from 'change-case';
+
 import { Page } from '~/app/_components/Page';
 import { api } from '~/trpc/server';
 
@@ -10,12 +12,11 @@ export default async function Osobowe({ params }: Props) {
 
   const carId = slug.slice(-10);
 
+  console.log(changeCase.kebabCase('TEST_VALUE'), 'KEBAB');
+
   const car = await api.offer.getCar({ id: carId });
 
-  if (!car) {
-    return <Page>Osobowe</Page>;
-  }
-
+  console.log(car, 'CAR');
   return (
     <Page>
       <div>Osobowe {params.slug}</div>

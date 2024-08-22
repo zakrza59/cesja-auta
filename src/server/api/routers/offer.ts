@@ -1,18 +1,41 @@
 import { z } from 'zod';
 import { OfferStatus } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
+import * as changeCase from 'change-case';
 
 import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/api/trpc';
-import { generateId } from '~/utils/generateId';
 import { AddOfferSchema } from '~/server/api/routers/offer.schema';
+import { generateId } from '~/utils/generateId';
+import { removeAccents } from '~/utils/removeAccents';
 
 export const offerRouter = createTRPCRouter({
   addOffer: protectedProcedure.input(AddOfferSchema).mutation(async ({ ctx, input }) => {
+    const id = generateId();
+
+    const selectedModel = await ctx.db.model.findUnique({
+      where: {
+        id: input.model,
+      },
+      include: {
+        make: true,
+      },
+    });
+
+    if (!selectedModel) {
+      throw new TRPCError({ code: 'NOT_FOUND', message: 'Nie może znaleźć modelu' });
+    }
+
+    const make = selectedModel.make.name;
+    const model = selectedModel.name;
+    const title = `${make} ${model} ${input.title.trim()}`;
+    const url = removeAccents(changeCase.kebabCase(`${title}-${id}`));
+
     return ctx.db.offer.create({
       data: {
-        id: generateId(),
+        id,
+        title,
+        url,
         clerkId: ctx.userId,
-        title: input.title,
         makeId: input.make,
         modelId: input.model,
       },

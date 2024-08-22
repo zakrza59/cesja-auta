@@ -60,10 +60,6 @@ export const AddOfferForm = () => {
       router.push(routes.myAccount);
     },
   });
-  //
-  // console.log(makes, 'makes');
-  // console.log(makeModels, 'makeModels');
-  // console.log(selectedMake, 'selectedMake');
 
   const onSubmit: SubmitHandler<AddOfferFormType> = (data) => {
     mutate(data);
@@ -83,6 +79,7 @@ export const AddOfferForm = () => {
           label="Tytuł ogłoszenia"
           placeholder="np. pierwszy właściciel, stan idealny, nowy akumulator"
           control={control}
+          maxLength={70}
         />
         <Select
           mb="sm"
@@ -94,7 +91,6 @@ export const AddOfferForm = () => {
           allowDeselect={false}
           control={control}
           disabled={makesPending}
-          error={errors.make?.message}
         />
         <Select
           data={makeModels.map((el) => ({ value: el.id, label: el.name }))}
@@ -105,7 +101,6 @@ export const AddOfferForm = () => {
           allowDeselect={false}
           control={control}
           disabled={!makes.length || !makeModels.length || makeModelsPending}
-          error={errors.model?.message}
         />
       </Fieldset>
       <button type="submit" disabled={isPending}>

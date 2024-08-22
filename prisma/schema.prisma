@@ -34,6 +34,7 @@ model Offer {
   bodyType     String?
   color        String?
   condition    String?
+  url          String?
   status       OfferStatus @default(ACTIVE)
   type         CarType     @default(PERSONAL)
   createdAt    DateTime    @default(now())

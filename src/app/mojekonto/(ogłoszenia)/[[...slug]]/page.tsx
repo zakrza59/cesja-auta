@@ -2,6 +2,7 @@
 
 import { notFound, usePathname } from 'next/navigation';
 import { Flex } from '@mantine/core';
+import * as changeCase from 'change-case';
 
 import { routes } from '~/const/routes';
 import { Page } from '~/app/_components/Page';
@@ -9,6 +10,7 @@ import { AdvertsTabs } from '~/app/mojekonto/_components/AdvertsTabs';
 import { ActiveOffers } from '~/app/mojekonto/(ogłoszenia)/_components/ActiveOffers';
 import { UnpaidOffers } from '~/app/mojekonto/(ogłoszenia)/_components/UnpaidOffers';
 import { FinishedOffers } from '~/app/mojekonto/(ogłoszenia)/_components/FinishedOffers';
+import { removeAccents } from '~/utils/removeAccents';
 
 const advertsTabs = [
   { label: 'Aktywne', value: routes.myAccount, component: <ActiveOffers /> },
@@ -17,6 +19,10 @@ const advertsTabs = [
 ];
 
 export default function MojeKonto() {
+  console.log(
+    removeAccents(changeCase.kebabCase('Nissan Juke 1.6 + Gaz | Do negocjacji | Pierwszy właściciel | Salon    ')),
+    'KEBAB',
+  );
   const pathname = usePathname();
   const selectedTab = advertsTabs.find((el) => el.value === pathname);
 
