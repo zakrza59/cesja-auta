@@ -28,13 +28,13 @@ export const offerRouter = createTRPCRouter({
     const make = selectedModel.make.name;
     const model = selectedModel.name;
     const title = `${make} ${model} ${input.title.trim()}`;
-    const url = removeAccents(changeCase.kebabCase(`${title}-${id}`));
+    const slug = removeAccents(changeCase.kebabCase(`${title}-${id}`));
 
     return ctx.db.offer.create({
       data: {
         id,
         title,
-        url,
+        slug,
         clerkId: ctx.userId,
         makeId: input.make,
         modelId: input.model,

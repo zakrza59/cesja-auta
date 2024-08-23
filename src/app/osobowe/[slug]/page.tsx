@@ -19,7 +19,7 @@ export default async function Osobowe({ params }: Props) {
   console.log(car, 'CAR');
   return (
     <Page>
-      <div>Osobowe {params.slug}</div>
+      <div>Osobowe {car.title}</div>
       <div>{JSON.stringify(car, null, 2)}</div>
     </Page>
   );

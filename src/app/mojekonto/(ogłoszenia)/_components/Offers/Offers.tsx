@@ -1,8 +1,11 @@
 import React from 'react';
-import { Prisma } from '@prisma/client';
+import Link from 'next/link';
+import { Offer } from '@prisma/client';
+
+import { buildOfferUrl } from '~/utils/buildOfferUrl';
 
 type OffersProps = {
-  data?: Prisma.OfferGetPayload<{ include: { make: true; model: true } }>[];
+  data?: Offer[];
 };
 
 export const Offers = ({ data }: OffersProps) => {
@@ -14,7 +17,7 @@ export const Offers = ({ data }: OffersProps) => {
     <ul>
       {data.map((offer) => (
         <li key={offer.id}>
-          {offer.title} - {offer.make.name} - {offer.model.name}
+          <Link href={buildOfferUrl(offer.type, offer.slug!)}>{offer.title}</Link>
         </li>
       ))}
     </ul>
