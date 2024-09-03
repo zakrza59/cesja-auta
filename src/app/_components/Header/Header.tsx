@@ -20,12 +20,12 @@ export const Header = () => {
         <Group color="red" justify="space-between" h="100%">
           <p>CesjaAuta</p>
           <Group h="100%" gap={0} visibleFrom="sm">
-            <a href="#" className={classes.link}>
+            <Link href={routes.home} className={classes.link}>
               Home
-            </a>
-            <a href="#" className={classes.link}>
+            </Link>
+            <Link href={routes.offers} className={classes.link}>
               Szukaj
-            </a>
+            </Link>
           </Group>
           <Group visibleFrom="sm" gap={24}>
             <SignedOut>

@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { OfferStatus } from '@prisma/client';
+import { Prisma, OfferStatus } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import * as changeCase from 'change-case';
 
-import { createTRPCRouter, publicProcedure, protectedProcedure } from '~/server/api/trpc';
-import { AddOfferSchema } from '~/server/api/routers/offer.schema';
+import { createTRPCRouter, protectedProcedure, publicProcedure } from '~/server/api/trpc';
+import { AddOfferSchema, GetOfferSchema } from '~/server/api/routers/offer.schema';
 import { generateId } from '~/utils/generateId';
 import { removeAccents } from '~/utils/removeAccents';
 
@@ -27,8 +27,8 @@ export const offerRouter = createTRPCRouter({
 
     const make = selectedModel.make.name;
     const model = selectedModel.name;
-    const title = `${make} ${model} ${input.title.trim()}`;
-    const slug = removeAccents(changeCase.kebabCase(`${title}-${id}`));
+    const title = `${make} ${model} ${input.title.trim()}`; //TODO make i model może niekoniecznie w title na sztywno?
+    const slug = removeAccents(changeCase.kebabCase(title)) + `-${id}`;
 
     return ctx.db.offer.create({
       data: {
@@ -86,7 +86,7 @@ export const offerRouter = createTRPCRouter({
       },
     });
   }),
-  getCar: protectedProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
+  getOffer: publicProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
     const offer = await ctx.db.offer.findUnique({
       where: {
         id: input.id,
@@ -101,10 +101,93 @@ export const offerRouter = createTRPCRouter({
 
     return offer;
   }),
-  getMakes: protectedProcedure.query(({ ctx }) => {
+  getOffers: publicProcedure
+    .input(
+      z.object({
+        makes: z.string().array(),
+        models: z.string().array(),
+      }),
+    )
+    .query(({ ctx, input }) => {
+      const whereClause: Prisma.OfferWhereInput = {
+        status: OfferStatus.ACTIVE,
+        ...brandAndModelFilter(input.makes, input.models),
+      };
+
+      return ctx.db.offer.findMany({
+        where: whereClause,
+        take: 10,
+        include: {
+          make: true,
+          model: true,
+        },
+      });
+    }),
+  getMakes: publicProcedure.query(({ ctx }) => {
     return ctx.db.make.findMany();
   }),
-  getMakeModels: protectedProcedure.input(z.object({ makeId: z.string() })).query(({ ctx, input }) => {
-    return ctx.db.model.findMany({ where: { makeId: input.makeId } });
+  getMakeModels: publicProcedure.input(z.object({ makeId: z.string() })).query(({ ctx, input }) => {
+    return ctx.db.model.findMany({
+      where: {
+        makeId: input.makeId,
+      },
+    });
+  }),
+  getMakesModels: publicProcedure.input(z.object({ makeIds: z.array(z.string()) })).query(async ({ ctx, input }) => {
+    const models = await ctx.db.model.findMany({
+      where: {
+        makeId: {
+          in: input.makeIds,
+        },
+      },
+      include: {
+        make: true,
+      },
+    });
+
+    console.log(models, 'WESZLO models');
+
+    function groupModelsByMake(models) {
+      const newArr = [];
+
+      models.forEach((model) => {
+        const group = model.make.name;
+        const item = { value: model.id, label: model.name };
+
+        const existingGroupIndex = newArr.findIndex((groupObj) => groupObj.group === group);
+
+        if (existingGroupIndex !== -1) {
+          newArr[existingGroupIndex].items.push(item);
+        } else {
+          newArr.push({ group, items: [item] });
+        }
+      });
+
+      return newArr;
+    }
+
+    return groupModelsByMake(models);
   }),
 });
+
+/**
+ * Helper function to build the OR conditions based on the makes and models input.
+ */
+function brandAndModelFilter(makes: string[] | [], models: string[]): Prisma.OfferWhereInput {
+  if (makes.length === 0) {
+    return {};
+  }
+
+  const filteredMakes = makes.filter((make) => !models.some((model) => model.startsWith(make)));
+
+  return {
+    OR: [
+      {
+        makeId: { in: filteredMakes },
+      },
+      {
+        modelId: { in: models },
+      },
+    ],
+  };
+}

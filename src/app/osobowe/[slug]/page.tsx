@@ -14,13 +14,25 @@ export default async function Osobowe({ params }: Props) {
 
   console.log(changeCase.kebabCase('TEST_VALUE'), 'KEBAB');
 
-  const car = await api.offer.getCar({ id: carId });
+  const car = await api.offer.getOffer({ id: carId });
 
   console.log(car, 'CAR');
   return (
     <Page>
+      <br />
       <div>Osobowe {car.title}</div>
-      <div>{JSON.stringify(car, null, 2)}</div>
+      <br />
+      <br />
+      {/*<div>{JSON.stringify(car, null, 2)}</div>*/}
+      <div>
+        {Object.entries(car)
+          .map((el) => `${el[0]} - ${el[1]}`)
+          .map((el2) => (
+            <>
+              <div>{el2}</div>
+            </>
+          ))}
+      </div>
     </Page>
   );
 }

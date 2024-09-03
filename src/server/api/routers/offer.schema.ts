@@ -5,3 +5,8 @@ export const AddOfferSchema = z.object({
   make: z.string().min(1),
   model: z.string().min(1),
 });
+
+export const GetOfferSchema = z.object({
+  makes: z.string().array(),
+  models: z.string().array(),
+});

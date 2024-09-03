@@ -1,9 +1,11 @@
 import '~/styles/globals.css';
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { GeistSans } from 'geist/font/sans';
 import { plPL } from '@clerk/localizations';
 
@@ -24,12 +26,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ColorSchemeScript />
         </head>
         <body className={GeistSans.className}>
-          <TRPCReactProvider>
-            <MantineProvider>
+          <MantineProvider>
+            <Notifications />
+            <TRPCReactProvider>
               <Header />
               {children}
-            </MantineProvider>
-          </TRPCReactProvider>
+            </TRPCReactProvider>
+          </MantineProvider>
           <SpeedInsights />
           <Analytics />
         </body>
