@@ -29,32 +29,32 @@ export const AddOfferForm = () => {
     defaultValues: {
       title: '',
       // @ts-expect-error needs to be null otherwise reset will not work
-      make: null,
+      brand: null,
       // @ts-expect-error needs to be null otherwise reset will not work
       model: null,
     },
   });
 
-  const selectedMake = watch('make');
+  const selectedBrand = watch('brand');
 
   useEffect(() => {
     resetField('model');
-  }, [resetField, selectedMake]);
+  }, [resetField, selectedBrand]);
 
   const {
-    data: makes,
-    // error: makesError,
-    isPending: makesPending,
-  } = api.offer.getMakes.useQuery(undefined, { initialData: [] });
+    data: brands,
+    // error: brandsError,
+    isPending: brandsPending,
+  } = api.offer.getBrands.useQuery(undefined, { initialData: [] });
   const {
-    data: makeModels,
-    // error: makeModelsError,
-    isPending: makeModelsPending,
-  } = api.offer.getMakeModels.useQuery({ makeId: selectedMake }, { initialData: [], enabled: !!selectedMake });
+    data: brandModels,
+    // error: brandModelsError,
+    isPending: brandModelsPending,
+  } = api.offer.getBrandModels.useQuery({ brandId: selectedBrand }, { initialData: [], enabled: !!selectedBrand });
   const { mutate, isPending } = api.offer.addOffer.useMutation({
     onSuccess: () => {
       resetField('title');
-      resetField('make');
+      resetField('brand');
       resetField('model');
 
       router.push(routes.myAccount);
@@ -83,24 +83,24 @@ export const AddOfferForm = () => {
         />
         <Select
           mb="sm"
-          data={makes.map((el) => ({ value: el.id, label: el.name }))}
-          name="make"
+          data={brands.map((el) => ({ value: el.id, label: el.name }))}
+          name="brand"
           label="Marka pojazdu"
           placeholder="Wybierz"
           searchable
           allowDeselect={false}
           control={control}
-          disabled={makesPending}
+          disabled={brandsPending}
         />
         <Select
-          data={makeModels.map((el) => ({ value: el.id, label: el.name }))}
+          data={brandModels.map((el) => ({ value: el.id, label: el.name }))}
           name="model"
           label="Model pojazdu"
           placeholder="Wybierz"
           searchable
           allowDeselect={false}
           control={control}
-          disabled={!makes.length || !makeModels.length || makeModelsPending}
+          disabled={!brands.length || !brandModels.length || brandModelsPending}
         />
       </Fieldset>
       <button type="submit" disabled={isPending}>

@@ -7,46 +7,46 @@ import { api } from '~/trpc/react';
 export const BrandAndModelSelect = () => {
   const { control, watch, setValue } = useFormContext(); // retrieve all hook methods
 
-  const selectedMakes = watch('makes');
+  const selectedBrands = watch('brands');
   const selectedModels = watch('models');
 
-  const { data: makes, isPending: makesPending } = api.offer.getMakes.useQuery(undefined, { initialData: [] });
-  const { data: makesModels, isPending: makesModelsPending } = api.offer.getMakesModels.useQuery(
-    { makeIds: selectedMakes },
-    { initialData: [], enabled: !!selectedMakes.length },
+  const { data: brands, isPending: brandsPending } = api.offer.getBrands.useQuery(undefined, { initialData: [] });
+  const { data: brandsModels, isPending: brandsModelsPending } = api.offer.getBrandsModels.useQuery(
+    { brandIds: selectedBrands },
+    { initialData: [], enabled: !!selectedBrands.length },
   );
 
   useEffect(() => {
-    //remove models when removing makes
+    //remove models when removing brands
     const filteredModels = selectedModels.filter((selectedModel) => {
       const [name] = selectedModel.split('.');
-      return selectedMakes.includes(name as string);
+      return selectedBrands.includes(name as string);
     });
     console.log(filteredModels, 'WESZLO filteredModels');
     setValue('models', filteredModels);
-  }, [selectedMakes, setValue]);
+  }, [selectedBrands, setValue]);
 
   return (
     <>
       <MultiSelect
         mb="sm"
-        data={makes.map((el) => ({ value: el.id, label: el.name }))}
-        name="makes"
+        data={brands.map((el) => ({ value: el.id, label: el.name }))}
+        name="brands"
         label="Marka pojazdu"
         placeholder="Wybierz"
         searchable
         control={control}
-        disabled={makesPending}
+        disabled={brandsPending}
       />
       <MultiSelect
         mb="sm"
-        data={makesModels}
+        data={brandsModels}
         name="models"
         label="Model pojazdu"
         placeholder="Wybierz"
         searchable
         control={control}
-        disabled={!makes.length || !makesModels.length || makesModelsPending}
+        disabled={!brands.length || !brandsModels.length || brandsModelsPending}
       />
     </>
   );

@@ -17,7 +17,7 @@ export const offerRouter = createTRPCRouter({
         id: input.model,
       },
       include: {
-        make: true,
+        brand: true,
       },
     });
 
@@ -25,9 +25,9 @@ export const offerRouter = createTRPCRouter({
       throw new TRPCError({ code: 'NOT_FOUND', message: 'Nie może znaleźć modelu' });
     }
 
-    const make = selectedModel.make.name;
+    const brand = selectedModel.brand.name;
     const model = selectedModel.name;
-    const title = `${make} ${model} ${input.title.trim()}`; //TODO make i model może niekoniecznie w title na sztywno?
+    const title = `${brand} ${model} ${input.title.trim()}`; //TODO brand i model może niekoniecznie w title na sztywno?
     const slug = removeAccents(changeCase.kebabCase(title)) + `-${id}`;
 
     return ctx.db.offer.create({
@@ -36,7 +36,7 @@ export const offerRouter = createTRPCRouter({
         title,
         slug,
         clerkId: ctx.userId,
-        makeId: input.make,
+        brandId: input.brand,
         modelId: input.model,
       },
     });
@@ -48,7 +48,7 @@ export const offerRouter = createTRPCRouter({
         status: OfferStatus.ACTIVE,
       },
       include: {
-        make: true,
+        brand: true,
         model: true,
       },
     });
@@ -60,7 +60,7 @@ export const offerRouter = createTRPCRouter({
         status: OfferStatus.UNPAID,
       },
       include: {
-        make: true,
+        brand: true,
         model: true,
       },
     });
@@ -72,7 +72,7 @@ export const offerRouter = createTRPCRouter({
         status: OfferStatus.FINISHED,
       },
       include: {
-        make: true,
+        brand: true,
         model: true,
       },
     });
@@ -81,7 +81,7 @@ export const offerRouter = createTRPCRouter({
     return ctx.db.offer.findMany({
       orderBy: { createdAt: 'desc' },
       include: {
-        make: true,
+        brand: true,
         model: true,
       },
     });
@@ -104,54 +104,54 @@ export const offerRouter = createTRPCRouter({
   getOffers: publicProcedure
     .input(
       z.object({
-        makes: z.string().array(),
+        brands: z.string().array(),
         models: z.string().array(),
       }),
     )
     .query(({ ctx, input }) => {
       const whereClause: Prisma.OfferWhereInput = {
         status: OfferStatus.ACTIVE,
-        ...brandAndModelFilter(input.makes, input.models),
+        ...brandAndModelFilter(input.brands, input.models),
       };
 
       return ctx.db.offer.findMany({
         where: whereClause,
         take: 10,
         include: {
-          make: true,
+          brand: true,
           model: true,
         },
       });
     }),
-  getMakes: publicProcedure.query(({ ctx }) => {
-    return ctx.db.make.findMany();
+  getBrands: publicProcedure.query(({ ctx }) => {
+    return ctx.db.brand.findMany();
   }),
-  getMakeModels: publicProcedure.input(z.object({ makeId: z.string() })).query(({ ctx, input }) => {
+  getBrandModels: publicProcedure.input(z.object({ brandId: z.string() })).query(({ ctx, input }) => {
     return ctx.db.model.findMany({
       where: {
-        makeId: input.makeId,
+        brandId: input.brandId,
       },
     });
   }),
-  getMakesModels: publicProcedure.input(z.object({ makeIds: z.array(z.string()) })).query(async ({ ctx, input }) => {
+  getBrandsModels: publicProcedure.input(z.object({ brandIds: z.array(z.string()) })).query(async ({ ctx, input }) => {
     const models = await ctx.db.model.findMany({
       where: {
-        makeId: {
-          in: input.makeIds,
+        brandId: {
+          in: input.brandIds,
         },
       },
       include: {
-        make: true,
+        brand: true,
       },
     });
 
     console.log(models, 'WESZLO models');
 
-    function groupModelsByMake(models) {
+    function groupModelsByBand(models) {
       const newArr = [];
 
       models.forEach((model) => {
-        const group = model.make.name;
+        const group = model.brand.name;
         const item = { value: model.id, label: model.name };
 
         const existingGroupIndex = newArr.findIndex((groupObj) => groupObj.group === group);
@@ -166,24 +166,24 @@ export const offerRouter = createTRPCRouter({
       return newArr;
     }
 
-    return groupModelsByMake(models);
+    return groupModelsByBand(models);
   }),
 });
 
 /**
- * Helper function to build the OR conditions based on the makes and models input.
+ * Helper function to build the OR conditions based on the brands and models input.
  */
-function brandAndModelFilter(makes: string[] | [], models: string[]): Prisma.OfferWhereInput {
-  if (makes.length === 0) {
+function brandAndModelFilter(brands: string[] | [], models: string[]): Prisma.OfferWhereInput {
+  if (brands.length === 0) {
     return {};
   }
 
-  const filteredMakes = makes.filter((make) => !models.some((model) => model.startsWith(make)));
+  const filteredBands = brands.filter((brand) => !models.some((model) => model.startsWith(brand)));
 
   return {
     OR: [
       {
-        makeId: { in: filteredMakes },
+        brandId: { in: filteredBands },
       },
       {
         modelId: { in: models },

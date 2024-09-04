@@ -21,7 +21,7 @@ async function CrudShowcase() {
           {offers.map((offer) => {
             return (
               <li key={offer.id}>
-                {offer.title} - {offer.make.name} - {offer.model.name}
+                {offer.title} - {offer.brand.name} - {offer.model.name}
               </li>
             );
           })}

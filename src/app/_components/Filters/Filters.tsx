@@ -20,7 +20,7 @@ export const Filters = () => {
     mode: 'all',
     resolver: zodResolver(GetOfferSchema),
     defaultValues: {
-      makes: [],
+      brands: [],
       models: [],
     },
   });

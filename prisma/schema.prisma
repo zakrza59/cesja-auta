@@ -24,7 +24,7 @@ model Offer {
   title        String
   description  String?
   price        Float?
-  makeId       String
+  brandId      String
   modelId      String
   year         Int?
   mileage      Int?
@@ -40,7 +40,7 @@ model Offer {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   user         User        @relation(fields: [clerkId], references: [clerkId])
-  make         Make        @relation(fields: [makeId], references: [id])
+  brand        Brand       @relation(fields: [brandId], references: [id])
   model        Model       @relation(fields: [modelId], references: [id])
   // images       Image[]
 }
@@ -53,7 +53,7 @@ model Offer {
 //   offer   Offer  @relation(fields: [offerId], references: [id])
 // }
 
-model Make {
+model Brand {
   id     String  @id
   name   String  @unique
   models Model[]
@@ -61,11 +61,11 @@ model Make {
 }
 
 model Model {
-  id     String  @id @unique
-  name   String  @unique
-  makeId String
-  make   Make    @relation(fields: [makeId], references: [id])
-  offers Offer[]
+  id      String  @id @unique
+  name    String  @unique
+  brandId String
+  brand   Brand   @relation(fields: [brandId], references: [id])
+  offers  Offer[]
 }
 
 enum UserStatus {
