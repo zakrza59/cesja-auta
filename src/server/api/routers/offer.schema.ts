@@ -9,4 +9,6 @@ export const AddOfferSchema = z.object({
 export const GetOfferSchema = z.object({
   brands: z.string().array(),
   models: z.string().array(),
+  installmentFrom: z.number().optional(),
+  installmentTo: z.number().optional(),
 });

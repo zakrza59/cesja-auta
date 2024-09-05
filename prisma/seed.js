@@ -41,6 +41,7 @@ async function seed() {
       {
         id: '0dcfnurhZv',
         clerkId,
+        installment: 1000,
         title: 'Mercedes GLC Lorem ipsum?',
         description: null,
         price: null,
@@ -63,6 +64,7 @@ async function seed() {
       {
         id: '4ZYGe15iMp',
         clerkId,
+        installment: 1000,
         title: 'Mercedes GLB Drop database :"|}{_+<>?,./',
         description: null,
         price: null,
@@ -85,6 +87,7 @@ async function seed() {
       {
         id: '6Scyb5Jwwa',
         clerkId,
+        installment: 1100,
         title: 'Mercedes GLC Tanio od niemca',
         description: null,
         price: null,
@@ -107,6 +110,7 @@ async function seed() {
       {
         id: 'FNIANEEBcx',
         clerkId,
+        installment: 1100,
         title: 'BMW X1 Test db',
         description: null,
         price: null,
@@ -129,6 +133,7 @@ async function seed() {
       {
         id: 'OxTN7Iy3Vb',
         clerkId,
+        installment: 1200,
         title: 'Audi A5 Powypadkowe | Tanio | Do NEGOO?',
         description: null,
         price: null,
@@ -151,6 +156,7 @@ async function seed() {
       {
         id: 'VKpEBHlU0v',
         clerkId,
+        installment: 1200,
         title: 'Audi A5 Rata 1000PLN !!!! Polecam!',
         description: null,
         price: null,
@@ -173,6 +179,7 @@ async function seed() {
       {
         id: 'YJz6oQWClQ',
         clerkId,
+        installment: 1300,
         title: 'Mercedes GLA Nie lubie zupy :)',
         description: null,
         price: null,
@@ -195,6 +202,7 @@ async function seed() {
       {
         id: 'ZUILpIlIIW',
         clerkId,
+        installment: 1300,
         title: 'BMW X1 Jedyny W POLSCE!! Taniocha',
         description: null,
         price: null,
@@ -217,6 +225,7 @@ async function seed() {
       {
         id: 'kCkEw9avTW',
         clerkId,
+        installment: 1400,
         title: 'Mercedes GLA Najnowsze z salonu',
         description: null,
         price: null,
@@ -239,6 +248,7 @@ async function seed() {
       {
         id: 'msq3ffqpdw',
         clerkId,
+        installment: 2200,
         title: 'BMW X1 Pierwszy właściiel, || {}Pedał ściana/ / Używany',
         description: null,
         price: null,

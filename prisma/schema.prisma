@@ -22,8 +22,9 @@ model Offer {
   id           String      @id
   clerkId      String
   title        String
+  installment  Int
   description  String?
-  price        Float?
+  price        Int?
   brandId      String
   modelId      String
   year         Int?

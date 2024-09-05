@@ -5,7 +5,7 @@ import { MultiSelect } from '~/app/_components/MultiSelect';
 import { api } from '~/trpc/react';
 
 export const BrandAndModelSelect = () => {
-  const { control, watch, setValue } = useFormContext(); // retrieve all hook methods
+  const { control, watch, setValue } = useFormContext();
 
   const selectedBrands = watch('brands');
   const selectedModels = watch('models');

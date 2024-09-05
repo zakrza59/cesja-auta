@@ -101,28 +101,22 @@ export const offerRouter = createTRPCRouter({
 
     return offer;
   }),
-  getOffers: publicProcedure
-    .input(
-      z.object({
-        brands: z.string().array(),
-        models: z.string().array(),
-      }),
-    )
-    .query(({ ctx, input }) => {
-      const whereClause: Prisma.OfferWhereInput = {
-        status: OfferStatus.ACTIVE,
-        ...brandAndModelFilter(input.brands, input.models),
-      };
+  getOffers: publicProcedure.input(GetOfferSchema).query(({ ctx, input }) => {
+    const whereClause: Prisma.OfferWhereInput = {
+      status: OfferStatus.ACTIVE,
+      ...brandAndModelFilter(input.brands, input.models),
+      ...installmentFilter(input.installmentFrom, input.installmentTo),
+    };
 
-      return ctx.db.offer.findMany({
-        where: whereClause,
-        take: 10,
-        include: {
-          brand: true,
-          model: true,
-        },
-      });
-    }),
+    return ctx.db.offer.findMany({
+      where: whereClause,
+      take: 10,
+      include: {
+        brand: true,
+        model: true,
+      },
+    });
+  }),
   getBrands: publicProcedure.query(({ ctx }) => {
     return ctx.db.brand.findMany();
   }),
@@ -190,4 +184,29 @@ function brandAndModelFilter(brands: string[] | [], models: string[]): Prisma.Of
       },
     ],
   };
+}
+
+function installmentFilter(from?: number, to?: number): Prisma.OfferWhereInput {
+  const whereClause: Prisma.OfferWhereInput = {};
+
+  if (from) {
+    whereClause.installment = {
+      gte: from,
+    };
+  }
+
+  if (to) {
+    whereClause.installment = {
+      lte: to,
+    };
+  }
+
+  if (from && to) {
+    whereClause.installment = {
+      gte: from,
+      lte: to,
+    };
+  }
+
+  return whereClause;
 }

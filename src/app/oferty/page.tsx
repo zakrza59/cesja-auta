@@ -10,6 +10,8 @@ export default async function Oferty({ searchParams }) {
   const offers = await api.offer.getOffers({
     brands: searchParams.brands?.split(',') || [],
     models: searchParams.models?.split(',') || [],
+    installmentFrom: Number(searchParams.installmentFrom) || 0,
+    installmentTo: Number(searchParams.installmentTo) || 0,
   });
 
   return (
