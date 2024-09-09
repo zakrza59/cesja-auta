@@ -4,5 +4,5 @@
   align-items: center;
   justify-content: flex-start;
   min-height: calc(100vh - 72px);
-  background: darkgrey;
+  background: var(--mantine-color-gray-1);
 }

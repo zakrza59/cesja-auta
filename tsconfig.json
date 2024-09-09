@@ -32,6 +32,7 @@
   "include": [
     ".eslintrc.cjs",
     "next-env.d.ts",
+    "mantine.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.cjs",

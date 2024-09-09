@@ -7,6 +7,7 @@ import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 
 import { UserDropdown } from '~/app/_components/Header/UserDropdown';
 import { MobileMenu } from '~/app/_components/Header/MobileMenu';
+import { Logo } from '~/app/_components/Logo';
 import { routes } from '~/const/routes';
 
 import classes from './Header.module.css';
@@ -18,7 +19,7 @@ export const Header = () => {
     <>
       <Box component="header" className={classes.header}>
         <Group color="red" justify="space-between" h="100%">
-          <p>CesjaAuta</p>
+          <Logo />
           <Group h="100%" gap={0} visibleFrom="sm">
             <Link href={routes.home} className={classes.link}>
               Home
@@ -30,26 +31,21 @@ export const Header = () => {
           <Group visibleFrom="sm" gap={24}>
             <SignedOut>
               <SignInButton>
-                <Button variant="default">Zaloguj się</Button>
+                <Button color="#fff" size="md" variant="outline">
+                  Zaloguj się
+                </Button>
               </SignInButton>
             </SignedOut>
             <SignedIn>
               <UserDropdown />
             </SignedIn>
-            <Button
-              size="md"
-              variant="gradient"
-              gradient={{ from: 'blue', to: 'grape', deg: 90 }}
-              component={Link}
-              href={routes.addOffer}
-            >
-              Wystaw auto
+            <Button size="md" color="deepBlue" component={Link} href={routes.addOffer}>
+              Dodaj ogłoszenie
             </Button>
           </Group>
-          <Burger onClick={toggleDrawer} hiddenFrom="sm" />
+          <Burger color="white" onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>
       </Box>
-
       <MobileMenu isOpen={isDrawerOpen} handleClose={closeDrawer} />
     </>
   );

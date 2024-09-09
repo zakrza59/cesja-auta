@@ -22,14 +22,8 @@ export const MobileMenu = ({ isOpen, handleClose }: MobileMenuProps) => {
       overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
     >
       <Stack justify="center" py="lg" px="md">
-        <Button
-          size="md"
-          variant="gradient"
-          gradient={{ from: 'blue', to: 'grape', deg: 90 }}
-          component={Link}
-          href={routes.addOffer}
-        >
-          Wystaw auto
+        <Button size="md" color="#5351e5" component={Link} href={routes.addOffer}>
+          Dodaj ogłoszenie
         </Button>
       </Stack>
       <Divider />
