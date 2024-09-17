@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { NumberInput } from '~/app/_components/NumberInput';
+import { NumberInput } from '~/app/_components/WithRHF';
 
 export const InstallmentRange = () => {
   const { control, watch, setValue } = useFormContext();

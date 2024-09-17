@@ -8,8 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
 import { api } from '~/trpc/react';
-import { Select } from '~/app/_components/Select';
-import { TextInput } from '~/app/_components/TextInput';
+import { Select, TextInput } from '~/app/_components/WithRHF';
 import { AddOfferSchema } from '~/server/api/routers/offer.schema';
 import { routes } from '~/const/routes';
 

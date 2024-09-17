@@ -26,7 +26,6 @@ export const NumberInput = <T extends FieldValues>({
 
   return (
     <$NumberInput
-      variant="filled"
       value={value}
       onChange={(value) => {
         if (value === '') {

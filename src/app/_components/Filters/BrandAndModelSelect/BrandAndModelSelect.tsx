@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { MultiSelect } from '~/app/_components/MultiSelect';
+import { MultiSelect } from '~/app/_components/WithRHF';
 import { api } from '~/trpc/react';
 
 export const BrandAndModelSelect = () => {

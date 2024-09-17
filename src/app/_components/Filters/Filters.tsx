@@ -59,7 +59,7 @@ export const Filters = () => {
   }, [formValues, handleSearch]);
 
   return (
-    <div>
+    <div style={{ border: '1px solid black', padding: '10px', width: 300 }}>
       <FormProvider {...methods}>
         <form role="search">
           <BrandAndModelSelect />
