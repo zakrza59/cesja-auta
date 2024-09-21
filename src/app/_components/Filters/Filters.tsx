@@ -3,9 +3,9 @@
 import { z } from 'zod';
 
 import { GetOfferSchema } from '~/server/api/routers/offer.schema';
-import { InstallmentRange } from '~/app/_components/Filters/InstallmentRange';
 import { BrandSelect } from '~/app/_components/Filters/BrandSelect';
 import { ModelSelect } from '~/app/_components/Filters/ModelSelect';
+import { InstallmentInputs } from 'src/app/_components/Filters/InstallmentInputs';
 
 import { BrandAndModelSelect } from '~/app/_components/Filters/BrandAndModelSelect';
 
@@ -28,7 +28,7 @@ export const Filters = () => {
       <form role="search">
         <BrandSelect />
         <ModelSelect />
-        <InstallmentRange />
+        <InstallmentInputs />
       </form>
     </div>
   );
