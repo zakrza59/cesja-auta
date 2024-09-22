@@ -10,7 +10,7 @@ type NumberInputProps = {
   max?: number;
 };
 
-export const NumberInput = ({ name, label, value, onChange, min = 2000, max = 2010 }: NumberInputProps) => {
+export const NumberInput = ({ name, label, value, onChange, min = 1, max = 1000000 }: NumberInputProps) => {
   const [localValue, setLocalValue] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -23,8 +23,19 @@ export const NumberInput = ({ name, label, value, onChange, min = 2000, max = 20
   };
 
   const handleBlur = () => {
-    if (localValue !== value) {
-      onChange(localValue ? Number(localValue) : null);
+    let newValue = localValue;
+
+    if (newValue !== null) {
+      if (newValue < min) {
+        newValue = min;
+      } else if (newValue > max) {
+        newValue = max;
+      }
+    }
+
+    setLocalValue(newValue);
+    if (newValue !== value) {
+      onChange(newValue);
     }
   };
 
@@ -43,12 +54,13 @@ export const NumberInput = ({ name, label, value, onChange, min = 2000, max = 20
       label={label}
       min={min}
       max={max}
-      value={value || ''}
+      value={localValue ?? ''}
       onChange={handleChange}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
       allowNegative={false}
       allowDecimal={false}
+      allowLeadingZeros={false}
       thousandSeparator=" "
       hideControls
       withKeyboardEvents={false}
