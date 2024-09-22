@@ -10,21 +10,21 @@ type NumberInputProps = {
   max?: number;
 };
 
-export const NumberInput = ({ name, label, value, onChange, min = 1, max = 1000000 }: NumberInputProps) => {
-  const [localFrom, setLocalFrom] = useState(value);
+export const NumberInput = ({ name, label, value, onChange, min = 2000, max = 2010 }: NumberInputProps) => {
+  const [localValue, setLocalValue] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setLocalFrom(value ? Number(value) : null);
+    setLocalValue(value ? Number(value) : null);
   }, [value]);
 
   const handleChange = (value: number | string) => {
-    setLocalFrom(value ? Number(value) : null);
+    setLocalValue(value ? Number(value) : null);
   };
 
   const handleBlur = () => {
-    if (localFrom !== value) {
-      onChange(localFrom ? Number(localFrom) : null);
+    if (localValue !== value) {
+      onChange(localValue ? Number(localValue) : null);
     }
   };
 
@@ -52,7 +52,6 @@ export const NumberInput = ({ name, label, value, onChange, min = 1, max = 10000
       thousandSeparator=" "
       hideControls
       withKeyboardEvents={false}
-      clampBehavior="strict"
     />
   );
 };
