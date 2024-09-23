@@ -104,8 +104,10 @@ export const offerRouter = createTRPCRouter({
   getOffers: publicProcedure.input(GetOfferSchema).query(({ ctx, input }) => {
     const whereClause: Prisma.OfferWhereInput = {
       status: OfferStatus.ACTIVE,
-      ...brandAndModelFilter(input.brands, input.models),
-      ...installmentFilter(input.installmentFrom, input.installmentTo),
+      ...brandAndModelFilter(input.brand, input.model),
+      ...rangeFilter('installment', input.installmentFrom, input.installmentTo),
+      ...rangeFilter('price', input.priceFrom, input.priceTo),
+      ...rangeFilter('year', input.yearFrom, input.yearTo),
     };
 
     return ctx.db.offer.findMany({
@@ -186,23 +188,27 @@ function brandAndModelFilter(brands: string[] | [], models: string[]): Prisma.Of
   };
 }
 
-function installmentFilter(from?: number, to?: number): Prisma.OfferWhereInput {
+function rangeFilter(
+  field: keyof Pick<Prisma.OfferWhereInput, 'installment' | 'price' | 'year' | 'mileage' | 'engineSize'>,
+  from?: number,
+  to?: number,
+): Prisma.OfferWhereInput {
   const whereClause: Prisma.OfferWhereInput = {};
 
   if (from) {
-    whereClause.installment = {
+    whereClause[field] = {
       gte: from,
     };
   }
 
   if (to) {
-    whereClause.installment = {
+    whereClause[field] = {
       lte: to,
     };
   }
 
   if (from && to) {
-    whereClause.installment = {
+    whereClause[field] = {
       gte: from,
       lte: to,
     };

@@ -7,8 +7,15 @@ export const AddOfferSchema = z.object({
 });
 
 export const GetOfferSchema = z.object({
-  brands: z.string().array(),
-  models: z.string().array(),
+  brand: z.string().array(),
+  model: z.string().array(),
+
   installmentFrom: z.number().optional(),
   installmentTo: z.number().optional(),
+
+  priceFrom: z.number().optional(),
+  priceTo: z.number().optional(),
+
+  yearFrom: z.number().optional(),
+  yearTo: z.number().optional(),
 });

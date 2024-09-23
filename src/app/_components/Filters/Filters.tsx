@@ -6,8 +6,8 @@ import { GetOfferSchema } from '~/server/api/routers/offer.schema';
 import { BrandSelect } from '~/app/_components/Filters/BrandSelect';
 import { ModelSelect } from '~/app/_components/Filters/ModelSelect';
 import { InstallmentInputs } from 'src/app/_components/Filters/InstallmentInputs';
-
-import { BrandAndModelSelect } from '~/app/_components/Filters/BrandAndModelSelect';
+import { PriceInputs } from '~/app/_components/Filters/PriceInputs';
+import { YearInputs } from '~/app/_components/Filters/YearInputs';
 
 type GetOfferFormType = z.infer<typeof GetOfferSchema>;
 
@@ -29,6 +29,8 @@ export const Filters = () => {
         <BrandSelect />
         <ModelSelect />
         <InstallmentInputs />
+        <PriceInputs />
+        <YearInputs />
       </form>
     </div>
   );

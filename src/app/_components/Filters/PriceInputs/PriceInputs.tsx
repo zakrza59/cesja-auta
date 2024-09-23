@@ -3,17 +3,17 @@ import { parseAsInteger, useQueryState } from 'nuqs';
 
 import { NumberInput } from '~/app/_components/Filters/NumberInput';
 
-const MIN_INSTALLMENT = 1;
-const MAX_INSTALLMENT = 1_000_000;
+const MIN_PRICE = 1;
+const MAX_PRICE = 10_000_000;
 
-enum InstallmentInputType {
-  from = 'installmentFrom',
-  to = 'installmentTo',
+enum PriceInputType {
+  from = 'priceFrom',
+  to = 'priceTo',
 }
 
-export const InstallmentInputs = () => {
+export const PriceInputs = () => {
   const [from, setFrom] = useQueryState(
-    InstallmentInputType.from,
+    PriceInputType.from,
     parseAsInteger.withOptions({
       history: 'push',
       shallow: false,
@@ -21,7 +21,7 @@ export const InstallmentInputs = () => {
   );
 
   const [to, setTo] = useQueryState(
-    InstallmentInputType.to,
+    PriceInputType.to,
     parseAsInteger.withOptions({
       history: 'push',
       shallow: false,
@@ -38,20 +38,20 @@ export const InstallmentInputs = () => {
   return (
     <>
       <NumberInput
-        name={InstallmentInputType.from}
-        label="Rata od"
+        name={PriceInputType.from}
+        label="Cena od"
         value={from}
         onChange={setFrom}
-        min={MIN_INSTALLMENT}
-        max={MAX_INSTALLMENT}
+        min={MIN_PRICE}
+        max={MAX_PRICE}
       />
       <NumberInput
-        name={InstallmentInputType.to}
-        label="Rata do"
+        name={PriceInputType.to}
+        label="Cena do"
         value={to}
         onChange={setTo}
-        min={MIN_INSTALLMENT}
-        max={MAX_INSTALLMENT}
+        min={MIN_PRICE}
+        max={MAX_PRICE}
       />
     </>
   );

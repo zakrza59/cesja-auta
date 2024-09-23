@@ -10,7 +10,7 @@ type NumberInputProps = {
   max?: number;
 };
 
-export const NumberInput = ({ name, label, value, onChange, min = 1, max = 1000000 }: NumberInputProps) => {
+export const NumberInput = ({ name, label, value, onChange, min = 1, max = 9999999 }: NumberInputProps) => {
   const [localValue, setLocalValue] = useState(value);
   const inputRef = useRef<HTMLInputElement>(null);
 

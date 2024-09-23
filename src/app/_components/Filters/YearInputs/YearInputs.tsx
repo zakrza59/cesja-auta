@@ -3,17 +3,17 @@ import { parseAsInteger, useQueryState } from 'nuqs';
 
 import { NumberInput } from '~/app/_components/Filters/NumberInput';
 
-const MIN_INSTALLMENT = 1;
-const MAX_INSTALLMENT = 1_000_000;
+const MIN_YEAR = 2010;
+const MAX_YEAR = 2026;
 
-enum InstallmentInputType {
-  from = 'installmentFrom',
-  to = 'installmentTo',
+enum YearInputType {
+  from = 'yearFrom',
+  to = 'yearTo',
 }
 
-export const InstallmentInputs = () => {
+export const YearInputs = () => {
   const [from, setFrom] = useQueryState(
-    InstallmentInputType.from,
+    YearInputType.from,
     parseAsInteger.withOptions({
       history: 'push',
       shallow: false,
@@ -21,7 +21,7 @@ export const InstallmentInputs = () => {
   );
 
   const [to, setTo] = useQueryState(
-    InstallmentInputType.to,
+    YearInputType.to,
     parseAsInteger.withOptions({
       history: 'push',
       shallow: false,
@@ -38,20 +38,20 @@ export const InstallmentInputs = () => {
   return (
     <>
       <NumberInput
-        name={InstallmentInputType.from}
-        label="Rata od"
+        name={YearInputType.from}
+        label="Rocznik od"
         value={from}
         onChange={setFrom}
-        min={MIN_INSTALLMENT}
-        max={MAX_INSTALLMENT}
+        min={MIN_YEAR}
+        max={MAX_YEAR}
       />
       <NumberInput
-        name={InstallmentInputType.to}
-        label="Rata do"
+        name={YearInputType.to}
+        label="Rocznik do"
         value={to}
         onChange={setTo}
-        min={MIN_INSTALLMENT}
-        max={MAX_INSTALLMENT}
+        min={MIN_YEAR}
+        max={MAX_YEAR}
       />
     </>
   );

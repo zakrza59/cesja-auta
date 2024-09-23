@@ -8,10 +8,14 @@ import { buildOfferUrl } from '~/utils/buildOfferUrl';
 
 export default async function Oferty({ searchParams }) {
   const offers = await api.offer.getOffers({
-    brands: searchParams.brands?.split(',') || [],
-    models: searchParams.models?.split(',') || [],
+    brand: searchParams.brand?.split(',') || [],
+    model: searchParams.model?.split(',') || [],
     installmentFrom: Number(searchParams.installmentFrom) || 0,
     installmentTo: Number(searchParams.installmentTo) || 0,
+    priceFrom: Number(searchParams.priceFrom) || 0,
+    priceTo: Number(searchParams.priceTo) || 0,
+    yearFrom: Number(searchParams.yearFrom) || 0,
+    yearTo: Number(searchParams.yearTo) || 0,
   });
 
   return (
@@ -22,7 +26,9 @@ export default async function Oferty({ searchParams }) {
         <ul>
           {offers.map((offer) => (
             <Card withBorder radius="md" p="md" mb="md" key={offer.id}>
-              <Link href={buildOfferUrl(offer.type, offer.slug!)}>{offer.title}</Link>
+              <Link href={buildOfferUrl(offer.type, offer.slug!)}>
+                {offer.title} CENA: {offer.price}, RATA: {offer.installment}
+              </Link>
             </Card>
           ))}
         </ul>
