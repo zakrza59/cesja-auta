@@ -18,4 +18,6 @@ export const GetOfferSchema = z.object({
 
   yearFrom: z.number().optional(),
   yearTo: z.number().optional(),
+
+  bodyType: z.string().optional(),
 });

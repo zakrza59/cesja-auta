@@ -8,6 +8,7 @@ import { ModelSelect } from '~/app/_components/Filters/ModelSelect';
 import { InstallmentInputs } from 'src/app/_components/Filters/InstallmentInputs';
 import { PriceInputs } from '~/app/_components/Filters/PriceInputs';
 import { YearInputs } from '~/app/_components/Filters/YearInputs';
+import { BodySelect } from '~/app/_components/Filters/BodySelect';
 
 type GetOfferFormType = z.infer<typeof GetOfferSchema>;
 
@@ -31,6 +32,7 @@ export const Filters = () => {
         <InstallmentInputs />
         <PriceInputs />
         <YearInputs />
+        <BodySelect />
       </form>
     </div>
   );

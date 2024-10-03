@@ -108,6 +108,7 @@ export const offerRouter = createTRPCRouter({
       ...rangeFilter('installment', input.installmentFrom, input.installmentTo),
       ...rangeFilter('price', input.priceFrom, input.priceTo),
       ...rangeFilter('year', input.yearFrom, input.yearTo),
+      bodyTypeId: input.bodyType,
     };
 
     return ctx.db.offer.findMany({
@@ -116,6 +117,7 @@ export const offerRouter = createTRPCRouter({
       include: {
         brand: true,
         model: true,
+        bodyType: true,
       },
     });
   }),
@@ -163,6 +165,9 @@ export const offerRouter = createTRPCRouter({
     }
 
     return groupModelsByBand(models);
+  }),
+  getBodyTypes: publicProcedure.query(({ ctx }) => {
+    return ctx.db.bodyType.findMany();
   }),
 });
 

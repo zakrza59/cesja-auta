@@ -16,6 +16,7 @@ export default async function Oferty({ searchParams }) {
     priceTo: Number(searchParams.priceTo) || 0,
     yearFrom: Number(searchParams.yearFrom) || 0,
     yearTo: Number(searchParams.yearTo) || 0,
+    bodyType: searchParams.bodyType,
   });
 
   return (
@@ -27,7 +28,7 @@ export default async function Oferty({ searchParams }) {
           {offers.map((offer) => (
             <Card withBorder radius="md" p="md" mb="md" key={offer.id}>
               <Link href={buildOfferUrl(offer.type, offer.slug!)}>
-                {offer.title} CENA: {offer.price}, RATA: {offer.installment}
+                {offer.title} CENA: {offer.price}, RATA: {offer.installment}, NADWOZIE: {offer.bodyType.name}
               </Link>
             </Card>
           ))}

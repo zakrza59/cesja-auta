@@ -32,7 +32,7 @@ model Offer {
   fuelType     String?
   transmission String?
   engineSize   Float?
-  bodyType     String?
+  bodyTypeId   String
   color        String?
   condition    String?
   slug         String?
@@ -43,6 +43,7 @@ model Offer {
   user         User        @relation(fields: [clerkId], references: [clerkId])
   brand        Brand       @relation(fields: [brandId], references: [id])
   model        Model       @relation(fields: [modelId], references: [id])
+  bodyType     BodyType    @relation(fields: [bodyTypeId], references: [id])
   // images       Image[]
 }
 
@@ -66,6 +67,12 @@ model Model {
   name    String  @unique
   brandId String
   brand   Brand   @relation(fields: [brandId], references: [id])
+  offers  Offer[]
+}
+
+model BodyType {
+  id      String  @id @unique
+  name    String  @unique
   offers  Offer[]
 }
 
