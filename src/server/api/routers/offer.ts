@@ -108,7 +108,7 @@ export const offerRouter = createTRPCRouter({
       ...rangeFilter('installment', input.installmentFrom, input.installmentTo),
       ...rangeFilter('price', input.priceFrom, input.priceTo),
       ...rangeFilter('year', input.yearFrom, input.yearTo),
-      bodyTypeId: input.bodyType,
+      ...bodyTypeFilter(input.bodyType),
     };
 
     return ctx.db.offer.findMany({
@@ -220,4 +220,14 @@ function rangeFilter(
   }
 
   return whereClause;
+}
+
+function bodyTypeFilter(bodyTypes: string[]): Prisma.OfferWhereInput {
+  if (bodyTypes.length === 0) {
+    return {};
+  }
+
+  return {
+    AND: [{ bodyTypeId: { in: bodyTypes } }],
+  };
 }
