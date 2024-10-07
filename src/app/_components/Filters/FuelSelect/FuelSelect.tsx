@@ -28,7 +28,7 @@ export const FuelSelect = () => {
   return (
     <>
       <MultiSelect
-        name="model"
+        name="fuelType"
         data={data.map((el) => ({ value: el.id, label: el.name }))}
         value={model}
         onChange={handleChange}

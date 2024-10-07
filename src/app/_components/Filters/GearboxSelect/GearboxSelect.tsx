@@ -3,9 +3,9 @@ import { MultiSelect } from '@mantine/core';
 
 import { api } from '~/trpc/react';
 
-export const BodySelect = () => {
-  const [model, setBody] = useQueryState(
-    'body',
+export const GearboxSelect = () => {
+  const [model, setFuel] = useQueryState(
+    'gearbox',
     parseAsArrayOf(parseAsString)
       .withOptions({
         history: 'push',
@@ -14,10 +14,10 @@ export const BodySelect = () => {
       .withDefault([]),
   );
 
-  const { data, isFetching } = api.offer.getBodies.useQuery(undefined, { initialData: [] });
+  const { data, isFetching } = api.offer.getGearboxes.useQuery(undefined, { initialData: [] });
 
   const handleChange = (value: string[]) => {
-    setBody(value.length > 0 ? value.sort() : null);
+    setFuel(value.length > 0 ? value.sort() : null);
   };
 
   //TODO add loading view so we cant se selected values without fetched options
@@ -28,11 +28,11 @@ export const BodySelect = () => {
   return (
     <>
       <MultiSelect
-        name="body"
+        name="gearbox"
         data={data.map((el) => ({ value: el.id, label: el.name }))}
         value={model}
         onChange={handleChange}
-        label="Typ nadwozia"
+        label="Skrzynia biegów"
         placeholder="Wybierz"
         searchable
         disabled={!data.length || isFetching}

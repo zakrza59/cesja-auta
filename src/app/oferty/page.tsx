@@ -15,8 +15,9 @@ export default async function Oferty({ searchParams }) {
     priceTo: Number(searchParams.priceTo) || 0,
     yearFrom: Number(searchParams.yearFrom) || 0,
     yearTo: Number(searchParams.yearTo) || 0,
-    bodyType: searchParams.bodyType?.split(',') || [],
+    body: searchParams.body?.split(',') || [],
     fuelType: searchParams.fuelType?.split(',') || [],
+    gearbox: searchParams.gearbox?.split(',') || [],
   });
 
   return (
@@ -27,8 +28,8 @@ export default async function Oferty({ searchParams }) {
           {offers.map((offer) => (
             <Card withBorder radius="md" p="md" mb="md" key={offer.id}>
               <Link href={buildOfferUrl(offer.type, offer.slug!)}>
-                {offer.title} CENA: {offer.price}, RATA: {offer.installment}, NADWOZIE: {offer.bodyType.name}, NADWOZIE:{' '}
-                {offer.fuelType.name}
+                {offer.title} CENA: {offer.price}, RATA: {offer.installment}, NADWOZIE: {offer.body.name}, PALIWO:{' '}
+                {offer.fuelType.name}, SKRZYNIA: {offer.gearbox.name}
               </Link>
             </Card>
           ))}
