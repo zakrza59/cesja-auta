@@ -29,7 +29,7 @@ model Offer {
   modelId      String
   year         Int?
   mileage      Int?
-  fuelType     String?
+  fuelTypeId   String
   transmission String?
   engineSize   Float?
   bodyTypeId   String
@@ -44,6 +44,7 @@ model Offer {
   brand        Brand       @relation(fields: [brandId], references: [id])
   model        Model       @relation(fields: [modelId], references: [id])
   bodyType     BodyType    @relation(fields: [bodyTypeId], references: [id])
+  fuelType     FuelType    @relation(fields: [fuelTypeId], references: [id])
   // images       Image[]
 }
 
@@ -71,6 +72,12 @@ model Model {
 }
 
 model BodyType {
+  id      String  @id @unique
+  name    String  @unique
+  offers  Offer[]
+}
+
+model FuelType {
   id      String  @id @unique
   name    String  @unique
   offers  Offer[]

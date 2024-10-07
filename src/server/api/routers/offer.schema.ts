@@ -20,4 +20,5 @@ export const GetOfferSchema = z.object({
   yearTo: z.number().optional(),
 
   bodyType: z.string().array(),
+  fuelType: z.string().array(),
 });

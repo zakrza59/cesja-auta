@@ -108,7 +108,8 @@ export const offerRouter = createTRPCRouter({
       ...rangeFilter('installment', input.installmentFrom, input.installmentTo),
       ...rangeFilter('price', input.priceFrom, input.priceTo),
       ...rangeFilter('year', input.yearFrom, input.yearTo),
-      ...bodyTypeFilter(input.bodyType),
+      ...typeFilter('bodyTypeId', input.bodyType),
+      ...typeFilter('fuelTypeId', input.fuelType),
     };
 
     return ctx.db.offer.findMany({
@@ -118,6 +119,7 @@ export const offerRouter = createTRPCRouter({
         brand: true,
         model: true,
         bodyType: true,
+        fuelType: true,
       },
     });
   }),
@@ -168,6 +170,9 @@ export const offerRouter = createTRPCRouter({
   }),
   getBodyTypes: publicProcedure.query(({ ctx }) => {
     return ctx.db.bodyType.findMany();
+  }),
+  getFuelTypes: publicProcedure.query(({ ctx }) => {
+    return ctx.db.fuelType.findMany();
   }),
 });
 
@@ -222,12 +227,15 @@ function rangeFilter(
   return whereClause;
 }
 
-function bodyTypeFilter(bodyTypes: string[]): Prisma.OfferWhereInput {
-  if (bodyTypes.length === 0) {
+function typeFilter(
+  fieldName: keyof Pick<Prisma.OfferWhereInput, 'bodyTypeId' | 'fuelTypeId'>,
+  types: string[],
+): Prisma.OfferWhereInput {
+  if (types.length === 0) {
     return {};
   }
 
   return {
-    AND: [{ bodyTypeId: { in: bodyTypes } }],
+    AND: [{ [fieldName]: { in: types } }],
   };
 }
