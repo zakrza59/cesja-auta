@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Offer } from '@prisma/client';
 
-import { buildOfferUrl } from '~/utils/buildOfferUrl';
+import { buildOfferUrl } from '~/lib/buildOfferUrl';
 
 type OffersProps = {
   data?: Offer[];

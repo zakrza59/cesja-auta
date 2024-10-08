@@ -7,8 +7,9 @@ import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 
 import { UserDropdown } from '~/app/_components/Header/UserDropdown';
 import { MobileMenu } from '~/app/_components/Header/MobileMenu';
-import { Logo } from '~/app/_components/Logo';
+import { Logo } from '~/components/ui/Logo';
 import { routes } from '~/const/routes';
+import { Button as ButtonUi } from '~/components/ui/Button';
 
 import classes from './Header.module.css';
 
@@ -42,6 +43,14 @@ export const Header = () => {
             <Button size="md" color="deepBlue" component={Link} href={routes.addOffer}>
               Dodaj ogłoszenie
             </Button>
+            <ButtonUi variant="default" size="lg">
+              Dodaj ogłoszenie 1
+            </ButtonUi>
+            <ButtonUi variant="outline">Dodaj ogłoszenie 3</ButtonUi>
+            <ButtonUi variant="destructive">Dodaj ogłoszenie 2</ButtonUi>
+            <ButtonUi variant="link">Dodaj ogłoszenie 4</ButtonUi>
+            <ButtonUi variant="ghost">Dodaj ogłoszenie 5</ButtonUi>
+            <ButtonUi variant="secondary">Dodaj ogłoszenie 6</ButtonUi>
           </Group>
           <Burger color="white" onClick={toggleDrawer} hiddenFrom="sm" />
         </Group>

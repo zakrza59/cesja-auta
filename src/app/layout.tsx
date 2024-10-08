@@ -4,15 +4,16 @@ import '@mantine/notifications/styles.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/react';
 import { ClerkProvider } from '@clerk/nextjs';
-import { ColorSchemeScript, MantineProvider, CSSVariablesResolver } from '@mantine/core';
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { Onest } from 'next/font/google';
 import { plPL } from '@clerk/localizations';
-import { CSSVariables } from '@mantine/core/lib/core/MantineProvider/convert-css-variables/css-variables-object-to-string';
 
 import { TRPCReactProvider } from '~/trpc/react';
 import { Header } from '~/app/_components/Header';
 import { theme } from '~/styles/theme/theme';
+import { Navbar } from '~/components/navbar/Navbar';
+import { ThemeProvider } from '~/styles/ThemeProvider';
 
 export const metadata = {
   title: 'Create T3 App',
@@ -33,15 +34,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <ColorSchemeScript />
         </head>
         <body className={onest.className}>
-          <MantineProvider theme={theme}>
-            <Notifications />
-            <TRPCReactProvider>
-              <Header />
-              {children}
-            </TRPCReactProvider>
-          </MantineProvider>
-          <SpeedInsights />
-          <Analytics />
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+            <MantineProvider theme={theme}>
+              <Notifications />
+              <TRPCReactProvider>
+                {/*<Header />*/}
+                <Navbar />
+                {children}
+              </TRPCReactProvider>
+            </MantineProvider>
+            <SpeedInsights />
+            <Analytics />
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

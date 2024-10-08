@@ -10,7 +10,7 @@ import { AdvertsTabs } from '~/app/mojekonto/_components/AdvertsTabs';
 import { ActiveOffers } from '~/app/mojekonto/(ogłoszenia)/_components/ActiveOffers';
 import { UnpaidOffers } from '~/app/mojekonto/(ogłoszenia)/_components/UnpaidOffers';
 import { FinishedOffers } from '~/app/mojekonto/(ogłoszenia)/_components/FinishedOffers';
-import { removeAccents } from '~/utils/removeAccents';
+import { removeAccents } from '~/lib/removeAccents';
 
 const advertsTabs = [
   { label: 'Aktywne', value: routes.myAccount, component: <ActiveOffers /> },

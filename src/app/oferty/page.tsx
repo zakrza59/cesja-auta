@@ -3,7 +3,7 @@ import { Card } from '@mantine/core';
 
 import { Page } from '~/app/_components/Page';
 import { api } from '~/trpc/server';
-import { buildOfferUrl } from '~/utils/buildOfferUrl';
+import { buildOfferUrl } from '~/lib/buildOfferUrl';
 
 export default async function Oferty({ searchParams }) {
   const offers = await api.offer.getOffers({

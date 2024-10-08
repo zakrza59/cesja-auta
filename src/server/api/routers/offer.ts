@@ -5,8 +5,8 @@ import * as changeCase from 'change-case';
 
 import { createTRPCRouter, protectedProcedure, publicProcedure } from '~/server/api/trpc';
 import { AddOfferSchema, GetOfferSchema } from '~/server/api/routers/offer.schema';
-import { generateId } from '~/utils/generateId';
-import { removeAccents } from '~/utils/removeAccents';
+import { generateId } from '~/lib/generateId';
+import { removeAccents } from '~/lib/removeAccents';
 
 export const offerRouter = createTRPCRouter({
   addOffer: protectedProcedure.input(AddOfferSchema).mutation(async ({ ctx, input }) => {

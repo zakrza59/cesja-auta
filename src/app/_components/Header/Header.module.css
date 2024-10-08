@@ -4,7 +4,7 @@
   width: 100%;
   top: 0;
   background: var(--mantine-color-dark-9);
-  height: rem(72px);
+  height: 72px;
   padding-left: var(--mantine-spacing-xl);
   padding-right: var(--mantine-spacing-xl);
 }
